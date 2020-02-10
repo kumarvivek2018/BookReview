@@ -54,11 +54,17 @@ class NotesController < ApplicationController
     # Set Book for the current user
     def set_book
       @book ||= Books.find_by(id: params[:book_id])
+      redirect_to books_path, alert: 'Book not found!' if @book.nil?
+
+      return @book
     end
 
     # Set Note for the current user and book_id
     def set_note
       @note ||= @book.notes.find_by(id: params[:id])
+      redirect_to @book, alert: 'Note not found!' if @note.nil?
+
+      return @note
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
