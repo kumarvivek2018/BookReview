@@ -13,10 +13,10 @@ class NotesController < ApplicationController
 
     respond_to do |format|
       if @note.save
-        format.html { redirect_to @note, notice: 'Note was successfully created.' }
-        format.json { render :show, status: :created, location: @note }
+        format.html { redirect_to @book, notice: 'Note was added successfully.' }
+        format.json { render :show, status: :created, location: @book }
       else
-        format.html { render :new }
+        format.html { redirect_to @book, alert: 'Unable to add the note!' }
         format.json { render json: @note.errors, status: :unprocessable_entity }
       end
     end
