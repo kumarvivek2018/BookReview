@@ -26,11 +26,11 @@ class NotesController < ApplicationController
   # PATCH/PUT /notes/1.json
   def update
     respond_to do |format|
-      if @note.update(note_params)
-        format.html { redirect_to @note, notice: 'Note was successfully updated.' }
-        format.json { render :show, status: :ok, location: @note }
+      if @note.present? && @note.update(note_params)
+        format.html { redirect_to @book, notice: 'Note was updated successfully.' }
+        format.json { render :show, status: :ok, location: @book }
       else
-        format.html { render :edit }
+        format.html { render :edit, alert: 'Unable to update the note!' }
         format.json { render json: @note.errors, status: :unprocessable_entity }
       end
     end
@@ -39,9 +39,11 @@ class NotesController < ApplicationController
   # DELETE /notes/1
   # DELETE /notes/1.json
   def destroy
+    redirect_to @book, alert: 'Unable to destroy the note. Note does not exist!' and return if @note.nil?
+
     @note.destroy
     respond_to do |format|
-      format.html { redirect_to notes_url, notice: 'Note was successfully destroyed.' }
+      format.html { redirect_to @book, notice: 'Note was destroyed successfully.' }
       format.json { head :no_content }
     end
   end
