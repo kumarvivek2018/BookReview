@@ -5,7 +5,7 @@ class SessionsController < ApplicationController
   end
 
   def create
-    reviewer = Reviewer.find_by(username: params[:reviewer][:username])
+    reviewer = Reviewer.find_by(username: params[:reviewer][:username].downcase)
 
     if(reviewer && reviewer.authenticate(params[:reviewer][:password]))
       session[:reviewer_id] = reviewer.id

@@ -5,6 +5,8 @@ class ReviewersController < ApplicationController
   end
 
   def create
+    params[:reviewer][:username].downcase!
+    
     reviewer = Reviewer.new(reviewer_params)
 
     if(reviewer.save)
