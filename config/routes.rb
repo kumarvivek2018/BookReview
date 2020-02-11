@@ -3,8 +3,8 @@ Rails.application.routes.draw do
   get "/login", to: "sessions#new", as: "login"
   delete "/logout", to: "sessions#destroy", as: "logout"
 
-  resources :reviewer, only: [:create]
-  get "/signup", to: "reviewer#new", as: "signup"
+  resources :reviewers, only: [:create]
+  get "/signup", to: "reviewers#new", as: "signup"
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root to: "books#index"
