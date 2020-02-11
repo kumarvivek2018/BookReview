@@ -13,15 +13,15 @@
 
   <div class="field">
     <%= form.label :name %>
-    <%= form.text_field :name %>
+    <%= form.text_field :name, id: :book_name %>
   </div>
 
   <div class="field">
     <%= form.label :author %>
-    <%= form.text_field :author %>
+    <%= form.text_field :author, id: :book_author %>
   </div>
 
   <div class="actions">
-    <%= form.submit "Add Book"%>
+    <%= form.submit %>
   </div>
 <% end %>
