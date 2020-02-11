@@ -20,7 +20,7 @@ class NotesController < ApplicationController
         format.html { redirect_to @book, notice: 'Note was added successfully.' }
         format.json { render :show, status: :created, location: @book }
       else
-        format.html { render 'books/show', alert: 'Unable to add the note!' }
+        format.html { flash[:alert] = 'Unable to add the note!'; render 'books/show' }
         format.json { render json: @note.errors, status: :unprocessable_entity }
       end
     end
@@ -34,7 +34,7 @@ class NotesController < ApplicationController
         format.html { redirect_to @book, notice: 'Note was updated successfully.' }
         format.json { render :show, status: :ok, location: @book }
       else
-        format.html { render :edit, alert: 'Unable to update the note!' }
+        format.html { flash[:alert] = 'Unable to update the note!'; render :edit }
         format.json { render json: @note.errors, status: :unprocessable_entity }
       end
     end

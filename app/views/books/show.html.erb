@@ -1,14 +1,15 @@
 <div class="book">
-  <%= tag.span("#{@book.name} #{@book.author}", class: "book-title") %>
+  <%= tag.span("#{@book.name}, written by: #{@book.author}", class: "book-title") %>
   <%= link_to "Edit", edit_book_path(@book) %>
 </div>
 
 <div class="notes">
-  <%= render @notes %>
-  <%= will_paginate @notes %>
+  <% notes = @book.notes.paginate(page: params[:page], per_page: 3) %>
+  <%= render notes %>
+  <%= will_paginate notes %>
 </div>
 
-
+<h3>Add note about the book:</h3>
 <%= render 'notes/form', book: @book, note: @note %>
 
 <%= link_to 'Back', books_path %>
