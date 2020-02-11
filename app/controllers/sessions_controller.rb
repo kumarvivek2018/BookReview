@@ -15,11 +15,11 @@ class SessionsController < ApplicationController
   def create
     @reviewer = Reviewer.find_by(username: params[:reviewer][:username].downcase)
 
-    if(@reviewer && @reviewer.authenticate(params[:reviewer][:password]))
+    if(@reviewer.present? && @reviewer.authenticate(params[:reviewer][:password]))
       session[:reviewer_id] = @reviewer.id
       redirect_to books_path, notice: "Logged-in successfully"
     else
-      @reviewer = Reviewer.new(reviewer_params) if @reviewer.nil?
+      @reviewer = Reviewer.new(reviewer_params)
       flash[:alert] = "Invalid username/password combination"
       render 'login'
     end
