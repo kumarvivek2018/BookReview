@@ -10,7 +10,6 @@
 
   <body>
     <div>
-
       <% if(logged_in?) %>
         <div style="float: right;">
           Logged in as: <%= current_user.name %> | <%= link_to "Logout", logout_path, method: :delete %>

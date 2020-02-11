@@ -1,4 +1,8 @@
 class SessionsController < ApplicationController
+  def index
+    redirect_to login_path
+  end
+
   def new
     @reviewer = Reviewer.new
     render 'login'
@@ -12,7 +16,8 @@ class SessionsController < ApplicationController
       redirect_to books_path, notice: "Logged-in successfully"
     else
       @reviewer = Reviewer.new(reviewer_params) if @reviewer.nil?
-      render 'login', alert: "Invalid username/password combination"
+      flash[:alert] = "Invalid username/password combination"
+      render 'login'
     end
   end
 
@@ -25,9 +30,4 @@ class SessionsController < ApplicationController
     def reviewer_params
       params.fetch(:reviewer, {}).permit(:username, :password)
     end
-
-    # def get_login
-    #   @reviewer = Reviewer.new
-    #   render 'login'
-    # end
 end

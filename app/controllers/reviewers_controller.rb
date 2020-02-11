@@ -1,4 +1,8 @@
 class ReviewersController < ApplicationController
+  def index
+    redirect_to signup_path
+  end
+
   def new
     @reviewer = Reviewer.new
     render 'signup'
@@ -13,7 +17,8 @@ class ReviewersController < ApplicationController
       session[:reviewer_id] = @reviewer.id
       redirect_to books_path, notice: "Account created, logged-in successfully"
     else
-      render 'signup', alert: "Unable to create an account"
+      flash[:alert] = "Unable to create an account"
+      render 'signup'
     end
   end
 
