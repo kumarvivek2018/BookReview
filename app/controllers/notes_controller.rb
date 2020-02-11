@@ -57,7 +57,7 @@ class NotesController < ApplicationController
 
     # Set Book for the current user
     def set_book
-      @book ||= Book.find_by(id: params[:book_id])
+      @book ||= current_user.books.find_by(id: params[:book_id])
       redirect_to books_path, alert: 'Book not found!' if @book.nil?
 
       return @book
