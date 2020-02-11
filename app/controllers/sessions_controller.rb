@@ -1,9 +1,13 @@
 class SessionsController < ApplicationController
+  skip_before_action :ensure_login, only: [:new, :create]
+
   def index
     redirect_to login_path
   end
 
   def new
+    redirect_to books_path and return if logged_in?
+    
     @reviewer = Reviewer.new
     render 'login'
   end

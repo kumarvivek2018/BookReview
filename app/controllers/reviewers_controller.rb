@@ -1,9 +1,13 @@
 class ReviewersController < ApplicationController
+  skip_before_action :ensure_login, only: [:new, :create]
+
   def index
     redirect_to signup_path
   end
 
   def new
+    redirect_to books_path and return if logged_in?
+
     @reviewer = Reviewer.new
     render 'signup'
   end
@@ -25,10 +29,5 @@ class ReviewersController < ApplicationController
   private
     def reviewer_params
       params.fetch(:reviewer, {}).permit(:name, :username, :password)
-    end
-
-    def get_signup
-      @reviewer = Reviewer.new
-      render 'signup'
     end
 end
