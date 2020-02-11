@@ -1,6 +1,10 @@
 class NotesController < ApplicationController
-  before_action :set_book, only: [:edit, :update, :destroy]
+  before_action :set_book, only: [:index, :create, :edit, :update, :destroy]
   before_action :set_note, only: [:edit, :update, :destroy]
+
+  def index
+    redirect_to @book
+  end
 
   # GET /notes/1/edit
   def edit
@@ -16,7 +20,7 @@ class NotesController < ApplicationController
         format.html { redirect_to @book, notice: 'Note was added successfully.' }
         format.json { render :show, status: :created, location: @book }
       else
-        format.html { redirect_to @book, alert: 'Unable to add the note!' }
+        format.html { render 'books/show', alert: 'Unable to add the note!' }
         format.json { render json: @note.errors, status: :unprocessable_entity }
       end
     end
@@ -53,7 +57,7 @@ class NotesController < ApplicationController
 
     # Set Book for the current user
     def set_book
-      @book ||= Books.find_by(id: params[:book_id])
+      @book ||= Book.find_by(id: params[:book_id])
       redirect_to books_path, alert: 'Book not found!' if @book.nil?
 
       return @book

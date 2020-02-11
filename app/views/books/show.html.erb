@@ -7,32 +7,7 @@
   <%= render @book.notes %>
 </div>
 
-<%= form_with(model: [@book, @note], local: true) do |form| %>
-  <% if(@note.errors.any?) %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@note.errors.count, "error") %> prohibited this note from being saved:</h2>
 
-      <ul>
-        <% @notes.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= form.label :title %>
-    <%= form.text_field :title, id: :note_title %>
-  </div>
-
-  <div class="field">
-    <%= form.label :note %>
-    <%= form.textarea :note, size: "25x5", id: :note_note %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit "Add Note" %>
-  </div>
-<% end %>
+<%= render 'notes/form', book: @book, note: @note %>
 
 <%= link_to 'Back', books_path %>
