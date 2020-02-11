@@ -1,5 +1,5 @@
 class Reviewer < ApplicationRecord
-  has_many :books
+  has_many :books, dependent: :destroy
   has_many :notes, through: :books
 
   has_secure_password
