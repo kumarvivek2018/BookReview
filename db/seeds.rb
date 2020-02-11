@@ -18,12 +18,14 @@ books_data = [
     {name: "The Ruby Programming Language", author: "Daving Flanagan"}
   ]
 
-100.times{|index| books_data << {name: "Book #{index}", author: "Author #{index}"} }
+100.times{|index| books_data << {name: "Book #{index}", author: "Author #{index}"}}
 
 notes_data = [
     {title: "Wow", note: "Great book to learn Ruby"},
     {title: "Funny", note: "Doesn't put you to sleep"}
   ]
+
+25.times {|index| notes_data << {title: "Title #{index}", note: "Note #{index} content"}}
 
 reviewers = Reviewer.create!([
     {name: 'Vivek', username: 'vivek', password: 'viv123'},
