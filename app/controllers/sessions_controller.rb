@@ -5,13 +5,14 @@ class SessionsController < ApplicationController
   end
 
   def create
-    reviewer = Reviewer.find_by(username: params[:reviewer][:username].downcase)
+    @reviewer = Reviewer.find_by(username: params[:reviewer][:username].downcase)
 
-    if(reviewer && reviewer.authenticate(params[:reviewer][:password]))
-      session[:reviewer_id] = reviewer.id
+    if(@reviewer && @reviewer.authenticate(params[:reviewer][:password]))
+      session[:reviewer_id] = @reviewer.id
       redirect_to books_path, notice: "Logged-in successfully"
     else
-      redirect_to login_path, alert: "Invalid username/password combination"
+      @reviewer = Reviewer.new(reviewer_params) if @reviewer.nil?
+      render 'login', alert: "Invalid username/password combination"
     end
   end
 
@@ -19,4 +20,14 @@ class SessionsController < ApplicationController
     reset_session
     redirect_to login_path, notice: "Logged-out successfully"
   end
+
+  private
+    def reviewer_params
+      params.fetch(:reviewer, {}).permit(:username, :password)
+    end
+
+    # def get_login
+    #   @reviewer = Reviewer.new
+    #   render 'login'
+    # end
 end
