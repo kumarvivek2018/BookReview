@@ -1,0 +1,27 @@
+<%= form_with(model: @reviewer, url: sessions_path, local: true) do |form| %>
+  <% if(@reviewer.errors.any?) %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@reviewer.errors.count, "Error") %> prohibited this login:</h2>
+
+      <ul>
+        <% @reviewer.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    <div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :username %>
+    <%= form.text_field :username, id: :reviewer_username %>
+  </div>
+
+  <div class="field">
+    <%= form.label :password %>
+    <%= form.password_field :password, id: :reviewer_password %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "Login"%> | <%= link_to "New User?", signup_path %>
+  </div>
+<% end %>
