@@ -10,7 +10,6 @@ class BooksController < ApplicationController
   # GET /books/1
   # GET /books/1.json
   def show
-    @notes = @book.notes.paginate(page: params[:page], per_page: 3)
     @note = @book.notes.new
   end
 
@@ -33,7 +32,7 @@ class BooksController < ApplicationController
         format.html { redirect_to @book, notice: 'Book was successfully added.' }
         format.json { render :show, status: :created, location: @book }
       else
-        format.html { render :new, alert: 'Unable to add book!' }
+        format.html { flash[:alert] = 'Unable to add book!'; render :new }
         format.json { render json: @book.errors, status: :unprocessable_entity }
       end
     end
@@ -47,7 +46,7 @@ class BooksController < ApplicationController
         format.html { redirect_to @book, notice: 'Book was successfully updated.' }
         format.json { render :show, status: :ok, location: @book }
       else
-        format.html { render :edit, alert: 'Unable to update book!' }
+        format.html { flash[:alert] = 'Unable to update book!'; render :edit }
         format.json { render json: @book.errors, status: :unprocessable_entity }
       end
     end
